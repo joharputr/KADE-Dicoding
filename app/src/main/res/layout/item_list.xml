@@ -24,7 +24,7 @@
             android:src="@color/cardview_dark_background" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titleLeague"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"

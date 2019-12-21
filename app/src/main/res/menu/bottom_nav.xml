@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navHome"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="home"/>
+    <item
+        android:id="@+id/navNext"
+        android:icon="@drawable/ic_navigate_next_black_24dp"
+        android:title="next"/>
+    <item
+        android:id="@+id/navPrev"
+        android:icon="@drawable/ic_skip_previous_black_24dp"
+        android:title="previous"/>
+</menu>
