@@ -17,7 +17,7 @@ import com.example.ankolayout.API.Pojo.Match.ResponseMatch
 import com.example.ankolayout.App
 import com.example.ankolayout.Home.Activity.DetailMatch
 import com.example.ankolayout.Home.Activity.SearchDetailMatch
-import com.example.ankolayout.Home.Adapter.MatchAdapter
+import com.example.ankolayout.Home.Adapter.PrevMatchAdapter
 import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.previousmatch.*
 import retrofit2.Call
@@ -63,7 +63,7 @@ class PreviousMatchFragment : Fragment() {
         App.api.get_previous_match(App.preferenceHelper.id_team)
             .enqueue(object : Callback<ResponseMatch> {
                 override fun onFailure(call: Call<ResponseMatch>, t: Throwable) {
-                    App.preferenceHelper.clearAll()
+                    App.preferenceHelper.clearLeague()
                     progressPrev.visibility = View.GONE
                 }
 
@@ -72,27 +72,35 @@ class PreviousMatchFragment : Fragment() {
                 ) {
                     progressPrev.visibility = View.GONE
                     Log.d("CEKDATAPREV", response.body().toString())
-                    App.preferenceHelper.clearAll()
+                    App.preferenceHelper.clearLeague()
 
-                    for (i in 0 until  response.body()?.events!!.size) {
+                    for (i in 0 until response.body()?.events!!.size) {
                         val dataPrev = response.body()?.events!!.get(i)
                         val idEvent = dataPrev?.idEvent
                         val homeTeamName = dataPrev?.strHomeTeam
                         val AwayTeamName = dataPrev?.strAwayTeam
                         val scoreHome = dataPrev?.intHomeScore
                         val scoreAway = dataPrev?.intAwayScore
+                        val strSport = dataPrev?.strSport
+                        val idHome = dataPrev?.idHomeTeam
+                        val idAway = dataPrev?.idAwayTeam
+
+
                         val data = EventsItemMatch(
                             idEvent,
                             scoreHome,
                             scoreAway,
                             AwayTeamName,
-                            homeTeamName
+                            homeTeamName,
+                            strSport,
+                            idHome,
+                            idAway
+
                         )
-                        Log.d("CEKDATAREcycler",data.toString())
                         list.addAll(listOf(data))
                         recyclerPrev.run {
                             layoutManager = LinearLayoutManager(context)
-                            adapter = MatchAdapter(list) {
+                            adapter = PrevMatchAdapter(list) {
                                 click(it)
                             }
                         }
@@ -104,8 +112,8 @@ class PreviousMatchFragment : Fragment() {
 
 
     private fun click(it: EventsItemMatch) {
-        val intent = Intent(context,DetailMatch::class.java)
-        intent.putExtra("detailmatch",it)
+        val intent = Intent(context, DetailMatch::class.java)
+        intent.putExtra("detailmatch", it)
         startActivity(intent)
     }
 

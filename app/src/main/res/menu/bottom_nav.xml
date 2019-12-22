@@ -5,11 +5,8 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="home"/>
     <item
-        android:id="@+id/navNext"
+        android:id="@+id/navfavorite"
         android:icon="@drawable/ic_navigate_next_black_24dp"
-        android:title="next"/>
-    <item
-        android:id="@+id/navPrev"
-        android:icon="@drawable/ic_skip_previous_black_24dp"
-        android:title="previous"/>
+        android:title="Favorite"/>
+
 </menu>

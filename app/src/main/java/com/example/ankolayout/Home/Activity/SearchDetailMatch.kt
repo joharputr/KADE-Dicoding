@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ankolayout.API.Pojo.Match.EventsItemMatch
 import com.example.ankolayout.API.Pojo.Match.ResponseSearchMatch
 import com.example.ankolayout.App
-import com.example.ankolayout.Home.Adapter.MatchAdapter
+import com.example.ankolayout.Home.Adapter.PrevMatchAdapter
 import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.activity_search_detail_match.*
 import retrofit2.Call
@@ -60,21 +60,33 @@ class SearchDetailMatch : AppCompatActivity() {
                     val data = response.body()
                     Log.d("CHEKDATASEARCH = ", data.toString())
                     for (i in 0 until data?.events!!.size) {
-                        val dataSearch = data.events.get(i)
-                        val idEvent = dataSearch?.idEvent
-                        val homeScore = dataSearch?.intHomeScore
-                        val awayScore = dataSearch?.intAwayScore
-                        val homeTeam = dataSearch?.strHomeTeam
-                        val awayTeam = dataSearch?.strAwayTeam
-                        val list =
-                            EventsItemMatch(idEvent, homeScore, awayScore, awayTeam, homeTeam)
-                        Log.d("CHEKLIST = ", list.toString())
-
-                        arraylist.addAll(listOf(list))
-                        RecyclerDetailSearch.run {
-                            layoutManager = LinearLayoutManager(this@SearchDetailMatch)
-                            adapter = MatchAdapter(arraylist) {
-                                click(it)
+                        if (data.events.get(i)?.strSport == "Soccer") {
+                            val dataSearch = data.events.get(i)
+                            val idEvent = dataSearch?.idEvent
+                            val homeScore = dataSearch?.intHomeScore
+                            val awayScore = dataSearch?.intAwayScore
+                            val homeTeam = dataSearch?.strHomeTeam
+                            val awayTeam = dataSearch?.strAwayTeam
+                            val idHome = dataSearch?.idHomeTeam
+                            val idAway = dataSearch?.idAwayTeam
+                            val list = EventsItemMatch(
+                                idEvent,
+                                homeScore,
+                                awayScore,
+                                awayTeam,
+                                homeTeam,
+                                "",
+                                idHome,
+                                idAway,
+                                ""
+                            )
+                            Log.d("CHEKLIST = ", list.toString())
+                            arraylist.addAll(listOf(list))
+                            RecyclerDetailSearch.run {
+                                layoutManager = LinearLayoutManager(this@SearchDetailMatch)
+                                adapter = PrevMatchAdapter(arraylist) {
+                                    click(it)
+                                }
                             }
                         }
                     }

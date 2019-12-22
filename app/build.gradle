@@ -91,4 +91,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     //json ke coding
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
 }

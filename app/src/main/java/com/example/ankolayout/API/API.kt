@@ -3,6 +3,7 @@ package com.example.ankolayout.API
 
 import com.example.ankolayout.API.Pojo.DetailLeague.Response
 import com.example.ankolayout.API.Pojo.DetailMatch.ResponseDetailMatch
+import com.example.ankolayout.API.Pojo.DetailTeam.ResponseDetailTeam
 import com.example.ankolayout.API.Pojo.Match.ResponseMatch
 import com.example.ankolayout.API.Pojo.Match.ResponseSearchMatch
 import retrofit2.Call
@@ -48,6 +49,14 @@ interface Api {
             "e"
         ) origin: String?
     ): Call<ResponseSearchMatch>
+
+
+    @GET("lookupteam.php")
+    fun get_detail_team(
+        @Query(
+            "id"
+        ) origin: String?
+    ): Call<ResponseDetailTeam>
 
 }
 

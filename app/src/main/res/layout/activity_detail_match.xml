@@ -7,10 +7,34 @@
     android:orientation="vertical"
     tools:context=".Home.Activity.DetailMatch">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/homeImage"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+          />
+
+        <ImageView
+            android:layout_marginLeft="140dp"
+            android:id="@+id/awayImage"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+         />
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
+
 
         <TextView
             android:id="@+id/teamHomeDetail"
@@ -218,9 +242,9 @@
 
 
     <ProgressBar
+        android:id="@+id/progressDetailMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/progressDetailMatch"/>
+        android:layout_gravity="center" />
 
 </LinearLayout>

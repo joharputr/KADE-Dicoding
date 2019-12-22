@@ -9,11 +9,12 @@ import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.activity_detail.*
 
 
-class Detail : AppCompatActivity() {
+class DetailLeague : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_detail)
         viewpager_main.adapter = Pager(supportFragmentManager)
         tabs_main.setupWithViewPager(viewpager_main)

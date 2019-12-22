@@ -16,7 +16,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".Home.Activity.DetailMatch" />
         <activity
-            android:name=".Home.Activity.Detail"
+            android:name=".Home.Activity.DetailLeague"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Home.Activity.Home"

@@ -1,9 +1,12 @@
 package com.example.ankolayout.Home.Activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.ankolayout.API.Pojo.DetailMatch.ResponseDetailMatch
+import com.example.ankolayout.API.Pojo.DetailTeam.ResponseDetailTeam
 import com.example.ankolayout.API.Pojo.Match.EventsItemMatch
 import com.example.ankolayout.App
 import com.example.ankolayout.R
@@ -12,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailMatch : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +26,55 @@ class DetailMatch : AppCompatActivity() {
         val intent = intent
         val data = intent.getParcelableExtra<EventsItemMatch>("detailmatch")
         title = "${data.strHomeTeam} vs ${data.strAwayTeam}"
+        initDataBadge()
     }
+
+    private fun initDataBadge() {
+        val intent = intent
+        val data = intent.getParcelableExtra<EventsItemMatch>("detailmatch")
+        App.api.get_detail_team(data.idHomeTeam)
+            .enqueue(object : Callback<ResponseDetailTeam> {
+                override fun onFailure(
+                    call: Call<ResponseDetailTeam>,
+                    t: Throwable
+                ) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseDetailTeam>,
+                    response: Response<ResponseDetailTeam>
+                ) {
+
+                    val databadge = response.body()?.events?.get(0)
+                    Glide.with(this@DetailMatch).load(databadge?.strTeamBadge).into(homeImage)
+
+                }
+            })
+
+
+        App.api.get_detail_team(data.idAwayTeam)
+            .enqueue(object : Callback<ResponseDetailTeam> {
+                override fun onFailure(
+                    call: Call<ResponseDetailTeam>,
+                    t: Throwable
+                ) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseDetailTeam>,
+                    response: Response<ResponseDetailTeam>
+                ) {
+
+                    val databadgeAway =
+                        response.body()?.events?.get(0)
+                    Glide.with(this@DetailMatch).load(databadgeAway?.strTeamBadge).into(awayImage)
+
+                }
+            })
+    }
+
 
     private fun initData() {
         progressDetailMatch.visibility = View.VISIBLE
