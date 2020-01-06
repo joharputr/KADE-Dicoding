@@ -20,7 +20,9 @@ import com.example.ankolayout.Home.Activity.DetailMatch
 import com.example.ankolayout.Home.Activity.SearchDetailMatch
 import com.example.ankolayout.Home.Adapter.NextMatchAdapter
 import com.example.ankolayout.R
-import kotlinx.android.synthetic.main.previousmatch.*
+import kotlinx.android.synthetic.main.next_match.*
+import kotlinx.android.synthetic.main.previousmatch.progressPrev
+import kotlinx.android.synthetic.main.previousmatch.recyclerPrev
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,31 +35,32 @@ class NextMatchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.previousmatch, container, false)
+        return inflater.inflate(R.layout.next_match, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        progressPrev.visibility = View.GONE
+        progress_next?.visibility = View.GONE
         initData()
         search()
     }
 
     private fun initData() {
-        progressPrev.visibility = View.VISIBLE
-        App.api.get_next_match(App.preferenceHelper.id_team)
+        progress_next.visibility = View.VISIBLE
+        App.api.get_next_match(App.preferenceHelper.id_league)
             .enqueue(object : Callback<ResponseMatch> {
                 override fun onFailure(call: Call<ResponseMatch>, t: Throwable) {
-                    App.preferenceHelper.clearLeague()
-                    progressPrev.visibility = View.GONE
+               //     App.preferenceHelper.clearLeague()
+                    progress_next?.visibility = View.GONE
                 }
 
                 override fun onResponse(
                     call: Call<ResponseMatch>, response: Response<ResponseMatch>
                 ) {
-                    progressPrev.visibility = View.GONE
+
                     Log.d("CEKDATAPREV", response.body()?.events.toString())
-                    App.preferenceHelper.clearLeague()
+                    progress_next?.visibility = View.GONE
+             //       App.preferenceHelper.clearLeague()
 
                     try {
                         for (i in 0 until response.body()?.events!!.size) {
@@ -79,7 +82,8 @@ class NextMatchFragment : Fragment() {
                                 homeTeamName,
                                 strSport,
                                 idHome,
-                                idAway
+                                idAway,
+                                ""
                             )
 
                             Log.d("CEKDATAREcyclerNExt", data.toString())
@@ -90,20 +94,12 @@ class NextMatchFragment : Fragment() {
                                     click(it)
                                 }
                             }
-
-
                         }
-
                     } catch (e: NullPointerException) {
                         Toast.makeText(context, "data kosong", Toast.LENGTH_SHORT).show()
-
                     }
-
                 }
-
             })
-
-
     }
 
     private fun click(it: EventsItemMatch) {
@@ -115,8 +111,8 @@ class NextMatchFragment : Fragment() {
     private fun search() {
         val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val componentName = ComponentName(context!!, SearchDetailMatch::class.java)
-        searchViewPrev.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchViewPrev.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchViewNext.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchViewNext.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }

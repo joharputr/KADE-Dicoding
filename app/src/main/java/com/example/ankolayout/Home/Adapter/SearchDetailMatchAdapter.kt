@@ -1,28 +1,31 @@
-package com.example.ankolayout.Favorite.Adapter
+package com.example.ankolayout.Home.Adapter
+
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ankolayout.Favorite.AnkoSqlite.FavoriteData
+import com.example.ankolayout.API.Pojo.Match.EventsItemMatch
 import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.previous_match_list.view.*
 
-class FavoriteAdapter(
-    val list: ArrayList<FavoriteData>,
-    val onClik: (eventsItemNext: FavoriteData) -> Unit
-) :
-    RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(item: FavoriteData) = itemView.apply {
+class SearchDetailMatchAdapter(
+    val list: ArrayList<EventsItemMatch>,
+    val onClik: (eventsItemNext: EventsItemMatch) -> Unit
+) :
+    RecyclerView.Adapter<SearchDetailMatchAdapter.ViewHolder>() {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private var isFavorite: Boolean = false
+
+        fun bind(item: EventsItemMatch) = itemView.apply {
             Glide.with(context).load(R.drawable.bola).into(gambarHome)
             Glide.with(context).load(R.drawable.bola).into(gambarAway)
-            skorHome.text = item.homeScore
-            skorAway.text = item.awayScore
-            teamHome.text = item.homeTeam
-            teamAway.text = item.awayTeam
+            skorHome.text = item.intHomeScore
+            skorAway.text = item.intAwayScore
+            teamHome.text = item.strHomeTeam
+            teamAway.text = item.strAwayTeam
             starEmpty.visibility = View.GONE
         }
     }
@@ -31,7 +34,7 @@ class FavoriteAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoriteAdapter.ViewHolder {
+    ): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.previous_match_list,
@@ -45,7 +48,7 @@ class FavoriteAdapter(
         return list.size
     }
 
-    override fun onBindViewHolder(holder: FavoriteAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {

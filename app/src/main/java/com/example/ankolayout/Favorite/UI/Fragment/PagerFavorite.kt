@@ -3,6 +3,7 @@ package com.example.ankolayout.Favorite.UI.Fragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.ankolayout.Favorite.AnkoSqlite.FavoriteTeam
 import com.example.ankolayout.Home.Fragment.NextMatchFragment
 import com.example.ankolayout.Home.Fragment.PreviousMatchFragment
 
@@ -10,7 +11,8 @@ class PagerFavorite(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val page = listOf(
         FavoriteNextMatchFragment(),
-        FavoritePreviousMatchFragment()
+        FavoritePreviousMatchFragment(),
+        FavoriteTeamFragment()
     )
 
     override fun getItem(position: Int): Fragment {
@@ -24,7 +26,8 @@ class PagerFavorite(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
             0 -> "Next Match"
-            else -> "Previous Match"
+            1-> "Previous Match"
+            else -> "Favorite Team"
         }
     }
 }

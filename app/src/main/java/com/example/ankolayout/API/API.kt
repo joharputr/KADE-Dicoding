@@ -1,9 +1,11 @@
 package com.example.ankolayout.API
 
 
+import com.example.ankolayout.API.Pojo.DaftarTeam.Response_dft_team
 import com.example.ankolayout.API.Pojo.DetailLeague.Response
 import com.example.ankolayout.API.Pojo.DetailMatch.ResponseDetailMatch
 import com.example.ankolayout.API.Pojo.DetailTeam.ResponseDetailTeam
+import com.example.ankolayout.API.Pojo.Klasemen.Response_Kelasemen
 import com.example.ankolayout.API.Pojo.Match.ResponseMatch
 import com.example.ankolayout.API.Pojo.Match.ResponseSearchMatch
 import retrofit2.Call
@@ -57,6 +59,30 @@ interface Api {
             "id"
         ) origin: String?
     ): Call<ResponseDetailTeam>
+
+    @GET("lookuptable.php")
+    fun get_kelasemen_table(
+        @Query(
+            "l"
+        ) origin: String?
+    ): Call<Response_Kelasemen>
+
+    @GET("lookup_all_teams.php")
+    fun get_team_list(
+        @Query(
+            "id"
+        ) origin: String?
+    ): Call<Response_dft_team>
+
+
+    @GET("searchteams.php")
+    fun search_team(
+        @Query(
+            "t"
+        ) origin: String?
+    ): Call<Response_dft_team>
+
+
 
 }
 

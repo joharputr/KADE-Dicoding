@@ -1,17 +1,16 @@
 package com.example.ankolayout.Favorite.UI.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ankolayout.Favorite.Adapter.FavoriteAdapter
+import com.example.ankolayout.Favorite.Adapter.FavoriteAdapterNext
+import com.example.ankolayout.Favorite.Adapter.FavoriteAdapterPrev
 import com.example.ankolayout.Favorite.AnkoSqlite.FavoriteData
 import com.example.ankolayout.Favorite.AnkoSqlite.db
 import com.example.ankolayout.Helper.Constant
-import com.example.ankolayout.Home.Activity.DetailMatch
 import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import org.jetbrains.anko.db.classParser
@@ -39,6 +38,7 @@ class FavoritePreviousMatchFragment : Fragment() {
     }
 
     private fun showFav() {
+        fav.clear()
         context?.db?.use {
             swipeFavoriteFragment.isRefreshing = false
             val res = select(Constant.TABLE_FAV_PREV)
@@ -46,7 +46,7 @@ class FavoritePreviousMatchFragment : Fragment() {
             fav.addAll(favv)
             recyclerViewFavoriteFragment.run {
                 layoutManager = LinearLayoutManager(context)
-                adapter = FavoriteAdapter(fav) {
+                adapter = FavoriteAdapterPrev(fav) {
                     click(it)
                 }
             }

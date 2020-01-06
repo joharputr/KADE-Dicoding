@@ -15,7 +15,7 @@ class PreferenceHelper(app: Application) {
 
 
     fun clearLeague() {
-        spe.remove(Constant.id_team).apply()
+        spe.remove(Constant.id_League).apply()
     }
 
     fun clearHomeBadge() {
@@ -26,9 +26,9 @@ class PreferenceHelper(app: Application) {
         spe.remove(Constant.gambar_away).apply()
     }
 
-    var id_team: String
-        set(value) = spe.putString(Constant.id_team, value).apply()
-        get() = sp.getString(Constant.id_team, "") ?: ""
+    var id_league: String
+        set(value) = spe.putString(Constant.id_League, value).apply()
+        get() = sp.getString(Constant.id_League, "") ?: ""
 
     var gambar_home: String
         set(value) = spe.putString(Constant.gambar_home, value).apply()

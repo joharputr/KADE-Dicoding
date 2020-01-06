@@ -47,7 +47,7 @@ class DetailMatch : AppCompatActivity() {
                 ) {
 
                     val databadge = response.body()?.events?.get(0)
-                    Glide.with(this@DetailMatch).load(databadge?.strTeamBadge).into(homeImage)
+                    Glide.with(applicationContext).load(databadge?.strTeamBadge).into(homeImage)
 
                 }
             })
@@ -69,7 +69,7 @@ class DetailMatch : AppCompatActivity() {
 
                     val databadgeAway =
                         response.body()?.events?.get(0)
-                    Glide.with(this@DetailMatch).load(databadgeAway?.strTeamBadge).into(awayImage)
+                    Glide.with(applicationContext).load(databadgeAway?.strTeamBadge).into(awayImage)
 
                 }
             })

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ankolayout.API.Pojo.Match.EventsItemMatch
 import com.example.ankolayout.API.Pojo.Match.ResponseSearchMatch
 import com.example.ankolayout.App
-import com.example.ankolayout.Home.Adapter.PrevMatchAdapter
+import com.example.ankolayout.Home.Adapter.SearchDetailMatchAdapter
 import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.activity_search_detail_match.*
 import retrofit2.Call
@@ -38,7 +38,6 @@ class SearchDetailMatch : AppCompatActivity() {
         if (Intent.ACTION_SEARCH == intent.action) {
             search = intent.getStringExtra(SearchManager.QUERY)
             Log.d("SearchData= ", search)
-
         }
     }
 
@@ -84,9 +83,12 @@ class SearchDetailMatch : AppCompatActivity() {
                             arraylist.addAll(listOf(list))
                             RecyclerDetailSearch.run {
                                 layoutManager = LinearLayoutManager(this@SearchDetailMatch)
-                                adapter = PrevMatchAdapter(arraylist) {
-                                    click(it)
-                                }
+                                adapter =
+                                    SearchDetailMatchAdapter(
+                                        arraylist
+                                    ) {
+                                        click(it)
+                                    }
                             }
                         }
                     }
@@ -94,9 +96,7 @@ class SearchDetailMatch : AppCompatActivity() {
                     Toast.makeText(this@SearchDetailMatch, "data kosong", Toast.LENGTH_SHORT).show()
                 }
             }
-
         })
-
     }
 
     private fun click(it: EventsItemMatch) {

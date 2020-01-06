@@ -60,10 +60,10 @@ class PreviousMatchFragment : Fragment() {
 
     private fun initData() {
         progressPrev.visibility = View.VISIBLE
-        App.api.get_previous_match(App.preferenceHelper.id_team)
+        App.api.get_previous_match(App.preferenceHelper.id_league)
             .enqueue(object : Callback<ResponseMatch> {
                 override fun onFailure(call: Call<ResponseMatch>, t: Throwable) {
-                    App.preferenceHelper.clearLeague()
+                  //  App.preferenceHelper.clearLeague()
                     progressPrev.visibility = View.GONE
                 }
 
@@ -72,7 +72,7 @@ class PreviousMatchFragment : Fragment() {
                 ) {
                     progressPrev.visibility = View.GONE
                     Log.d("CEKDATAPREV", response.body().toString())
-                    App.preferenceHelper.clearLeague()
+                //    App.preferenceHelper.clearLeague()
 
                     for (i in 0 until response.body()?.events!!.size) {
                         val dataPrev = response.body()?.events!!.get(i)

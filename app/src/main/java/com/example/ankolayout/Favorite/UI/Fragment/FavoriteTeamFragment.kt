@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ankolayout.Favorite.Adapter.FavoriteAdapterNext
+import com.example.ankolayout.Favorite.Adapter.FavoriteAdapterTeam
 import com.example.ankolayout.Favorite.AnkoSqlite.FavoriteData
+import com.example.ankolayout.Favorite.AnkoSqlite.FavoriteTeam
 import com.example.ankolayout.Favorite.AnkoSqlite.db
 import com.example.ankolayout.Helper.Constant
 import com.example.ankolayout.R
@@ -17,8 +19,8 @@ import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.support.v4.onRefresh
 
-class FavoriteNextMatchFragment : Fragment() {
-    private var fav = ArrayList<FavoriteData>()
+class FavoriteTeamFragment : Fragment() {
+    private var fav_team = ArrayList<FavoriteTeam>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,29 +34,29 @@ class FavoriteNextMatchFragment : Fragment() {
         showFav()
 
         swipeFavoriteFragment.onRefresh {
-            fav.clear()
+            fav_team.clear()
             showFav()
         }
     }
 
     private fun showFav() {
         context?.db?.use {
-            fav.clear()
+            fav_team.clear()
             swipeFavoriteFragment.isRefreshing = false
-            val res = select(Constant.TABLE_FAV_NEXT)
-            val favv = res.parseList(classParser<FavoriteData>())
-            fav.addAll(favv)
-            Log.d("favoriteNext = ",fav.toString())
+            val res = select(Constant.TABLE_FAV_TEAM)
+            val favv = res.parseList(classParser<FavoriteTeam>())
+            fav_team.addAll(favv)
+            Log.d("favoriteNext = ", fav_team.toString())
             recyclerViewFavoriteFragment.run {
                 layoutManager = LinearLayoutManager(context)
-                adapter = FavoriteAdapterNext(fav) {
+                adapter = FavoriteAdapterTeam(fav_team) {
                     click(it)
                 }
             }
         }
     }
 
-    private fun click(it: FavoriteData) {
+    private fun click(it: FavoriteTeam) {
 
     }
 }

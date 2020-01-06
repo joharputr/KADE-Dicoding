@@ -126,7 +126,7 @@ class HomeFragment : Fragment() {
         )
         Log.d("Listdata", "sdsdsd")
         Log.d("Listdata", list.toString())
-        recyclerview.run {
+        recyclerviewHome.run {
             layoutManager = GridLayoutManager(context, 2)
             adapter =
                 LeagueAdapter(
@@ -140,12 +140,12 @@ class HomeFragment : Fragment() {
 
     private fun click(dataClass: DataLeague) {
         progBar.visibility = View.VISIBLE
-        App.preferenceHelper.id_team = dataClass.id.toString()
-        Log.d("CheckDataId = ", App.preferenceHelper.id_team)
+        App.preferenceHelper.id_league = dataClass.id.toString()
+        Log.d("CheckDataId = ", App.preferenceHelper.id_league)
         App.api.get_detail_league(dataClass.id.toString()).enqueue(object : Callback<Response> {
 
             override fun onFailure(call: Call<Response>, t: Throwable) {
-                progBar.visibility = View.GONE
+                progBar?.visibility = View.GONE
                 Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show()
             }
 
@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
                 call: Call<Response>,
                 response: retrofit2.Response<Response>
             ) {
-                progBar.visibility = View.GONE
+                progBar?.visibility = View.GONE
                 val body = response.body()
                 Log.d("CekData = ", body.toString())
 

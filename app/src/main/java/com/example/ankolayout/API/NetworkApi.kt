@@ -22,7 +22,7 @@ object NetworkAPI {
     }
 
     //client
-    private fun getOkHttpClient(): OkHttpClient {
+     fun getOkHttpClient(): OkHttpClient {
         val timeOut = 60L
         return OkHttpClient.Builder()
             .readTimeout(timeOut, TimeUnit.SECONDS)
@@ -34,7 +34,7 @@ object NetworkAPI {
 
     //interseptor
     //muncul di logcat
-    private fun getInterseptor(): Interceptor {
+     fun getInterseptor(): Interceptor {
         return HttpLoggingInterceptor().apply {
             //pake run eror why?
             level = if (BuildConfig.DEBUG) {
