@@ -1,36 +1,33 @@
-package com.example.ankolayout
+package com.example.ankolayout.Home.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ankolayout.LeagueUI.Companion.title
+import com.example.ankolayout.API.Pojo.Dummy.DataLeague
+import com.example.ankolayout.R
 import kotlinx.android.synthetic.main.item_list.view.*
-import org.jetbrains.anko.AnkoContext
 
 class LeagueAdapter(
     private val context: Context,
-    private val list: ArrayList<dataClass>,
-    val clik: (dataClass) -> Unit
+    private val list: ArrayList<DataLeague>,
+    val clik: (DataLeague) -> Unit
 ) :
     RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(item: dataClass) {
-            itemView.title.text = item.title
-        //    description.text = item.description
-            Glide.with(itemView)
-                .load(item.imageView)
-                .into(itemView.gambar)
+        fun bind(item: DataLeague) = itemView.run {
+            titleLeague.text = item.title
+            Glide.with(context).load(item.imageView).into(gambar)
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      return  ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list, parent, false))
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.item_list, parent, false)
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -40,8 +37,11 @@ class LeagueAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
         holder.bind(item)
+
         holder.itemView.setOnClickListener {
             clik(item)
         }
+
+
     }
 }
